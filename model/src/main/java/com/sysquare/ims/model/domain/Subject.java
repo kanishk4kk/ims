@@ -1,6 +1,6 @@
 package com.sysquare.ims.model.domain;
 
-// Generated 28 Aug, 2012 9:23:52 PM by Hibernate Tools 3.2.1.GA
+// Generated 30 Sep, 2012 3:42:28 PM by Hibernate Tools 3.2.1.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,28 +27,16 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "subject", catalog = "ims", uniqueConstraints = @UniqueConstraint(columnNames = "title"))
 public class Subject implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer subjectId;
 	private String title;
 	private Date createDate;
 	private Date lastModifiedDate;
 	private boolean isActive;
 	private Set<CourseSubject> courseSubjects = new HashSet<CourseSubject>(0);
+	private User updatedBy;
 
 	public Subject() {
-	}
-
-	public Subject(Date lastModifiedDate, boolean isActive) {
-		this.lastModifiedDate = lastModifiedDate;
-		this.isActive = isActive;
-	}
-
-	public Subject(String title, Date createDate, Date lastModifiedDate,
-			boolean isActive, Set<CourseSubject> courseSubjects) {
-		this.title = title;
-		this.createDate = createDate;
-		this.lastModifiedDate = lastModifiedDate;
-		this.isActive = isActive;
-		this.courseSubjects = courseSubjects;
 	}
 
 	@Id
@@ -58,6 +48,16 @@ public class Subject implements java.io.Serializable {
 
 	public void setSubjectId(Integer subjectId) {
 		this.subjectId = subjectId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "updated_by", nullable = false)
+	public User getUpdatedBy() {
+		return this.updatedBy;
+	}
+
+	public void setUpdatedBy(User updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 	@Column(name = "title", unique = true, length = 64)

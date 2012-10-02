@@ -66,6 +66,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByUsername(String username) {
+    	return userDAO.findByUsername(username);
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void updateUser(User user) {
         userDAO.updateUser(user);

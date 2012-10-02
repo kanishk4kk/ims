@@ -24,12 +24,8 @@ public class LoginController {
 	
 	@RequestMapping("/login")
 	public void listUsers(Map<String, Object> map) {
-		System.out.println("/login");
+		//System.out.println("/login");
 	}
-	
-//	@RequestMapping("/appExpire")
-//    public void appExpire() {
-//    }
 	
 	@RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
@@ -44,22 +40,14 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginValidate(@RequestParam(required=true,value="j_username") String j_username, @RequestParam(required=true,value="j_password") String j_password, HttpServletRequest request) {
 		System.out.println("Login:"+j_username);
-		/*try {
-			if(ApplicationConstants.MAC_VALIDATION && !GetMac.isValidMachine()) {
-				log.error("redirect:/inValidMachine.html");
-				return "redirect:/inValidMachine.html";
-			}
-		} catch (Exception e) {
-			log.error("not a valid machine", e);
-			return "redirect:/inValidMachine.html";
-		}*/
 	    log.info("User logged in :" + j_username);
 	    User user = userService.findByEmailAndPassword(j_username, j_password);
 	    if(user == null) {
 	        return "redirect:/login.html?invalidLogin=Y";
 	    } else {
 	        request.getSession().setAttribute("loggedInUser", user);
-	        return "redirect:/home.html";
+//	        return "redirect:/registration/create.html";
+	        return "redirect:/master/add.html";
 	    }
 	}
 }

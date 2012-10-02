@@ -32,8 +32,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void removeUser(Integer id) {
-		User user = (User) sessionFactory.getCurrentSession().load(
-				User.class, id);
+		User user = (User) sessionFactory.getCurrentSession().load(User.class, id);
 		if (null != user) {
 			sessionFactory.getCurrentSession().delete(user);
 		}
@@ -63,6 +62,14 @@ public class UserDAOImpl implements UserDAO {
     public User findById(Integer id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
         criteria.add(Restrictions.eq("id", id));
+        User user = (User)criteria.uniqueResult();
+        return user;
+    }
+    
+    @Override
+    public User findByUsername(String username) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+        criteria.add(Restrictions.eq("username", username));
         User user = (User)criteria.uniqueResult();
         return user;
     }

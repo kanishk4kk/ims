@@ -19,8 +19,6 @@
 -- Current Database: `ims`
 --
 
-/*!40000 DROP DATABASE IF EXISTS `ims`*/;
-
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `ims` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `ims`;
@@ -198,9 +196,11 @@ CREATE TABLE `paper` (
   KEY `FK_paper_course_subject` (`course_subject_id`),
   KEY `FK_paper_author` (`author_id`),
   KEY `FK_paper_user` (`updated_by`),
-  CONSTRAINT `FK_paper_user` FOREIGN KEY (`updated_by`) REFERENCES `user` (`user_id`),
+  KEY `FK_paper_severity` (`severity_id`),
+  CONSTRAINT `FK_paper_severity` FOREIGN KEY (`severity_id`) REFERENCES `severity` (`severity_id`),
   CONSTRAINT `FK_paper_author` FOREIGN KEY (`author_id`) REFERENCES `author` (`author_id`),
-  CONSTRAINT `FK_paper_course_subject` FOREIGN KEY (`course_subject_id`) REFERENCES `course_subject` (`course_subject_id`)
+  CONSTRAINT `FK_paper_course_subject` FOREIGN KEY (`course_subject_id`) REFERENCES `course_subject` (`course_subject_id`),
+  CONSTRAINT `FK_paper_user` FOREIGN KEY (`updated_by`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -412,4 +412,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-08-29 20:07:32
+-- Dump completed on 2012-08-31 21:37:33

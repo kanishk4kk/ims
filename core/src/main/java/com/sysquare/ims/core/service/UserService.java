@@ -14,5 +14,6 @@ public interface UserService {
     User findByEmailAndPassword(String email, String password);
     boolean isUserExists(String email, String password);
     public User findById(Integer id);
+    public User findByUsername(String username);
     public void updateUser(User user);
 }

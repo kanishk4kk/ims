@@ -12,5 +12,6 @@ public interface UserDAO {
 	User findByEmail(String email, Integer excludeId);
     User findByEmailAndPassword(String email, String password);
     User findById(Integer id);
+    User findByUsername(String username);
     void updateUser(User user);
 }
